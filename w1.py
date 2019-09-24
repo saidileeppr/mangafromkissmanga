@@ -61,7 +61,12 @@ def fun():
     il=[]
     link=str(input('Enter link:'))
     ls='https://kissmanga.com'
-    wd = webdriver.Chrome('C:\\Users\\user\\Downloads\\chromedriverwin32.exe')
+    option = webdriver.ChromeOptions()
+    chrome_prefs = {}
+    option.experimental_options["prefs"] = chrome_prefs
+    chrome_prefs["profile.default_content_settings"] = {"images": 2}
+    chrome_prefs["profile.managed_default_content_settings"] = {"images": 2}
+    wd = webdriver.Chrome('C:\\Users\\user\\Downloads\\chromedriverwin32.exe',chrome_options=option)
     wd.get(link)
     wait = WebDriverWait(wd, 10)
     h3 = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#head > h1 > a")))
